@@ -40,7 +40,7 @@ public class CustomerDataProcess {
         List<String> precessDetails = new LinkedList<>();
         precessDetails.add("Customers read from txt file," + totalCustomers + "," + dataReadTime);
         precessDetails.add("Removed duplicate customers," + totalUniqueCustomers + "," + findUniqueCustomerTime);
-        precessDetails.add("Removed invalid customers (if any of phone or email is valid then considered ad valid)," + totalUniqueValidCustomers + "," + findDataValidateTime);
+        precessDetails.add("Removed invalid customers (if any of phone or email is valid then considered as valid)," + totalUniqueValidCustomers + "," + findDataValidateTime);
         precessDetails.add("Insert customers into database," + totalCustomersInserted + "," + findInsertionTimeToDB);
         DatabaseUtil.insertCustomersDataProcessDetails(precessDetails);
     }
