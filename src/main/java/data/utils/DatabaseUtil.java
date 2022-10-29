@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class DatabaseUtil {
@@ -67,32 +66,6 @@ public class DatabaseUtil {
         }
     }
 
-    public static void insertCustomerInfo(String data) {
-        createCustomerInfoTableIfNotExist();
-        String prepareInsertQuery = "INSERT INTO customer_info (`first_name`, `last_name`, `city_name`, `state`, `zip_code`, `phone`, `email`, `ip`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-        List<String> sSplit = Arrays.asList(data.split(",", 8));
-        System.out.println(sSplit.size());
-        try {
-            con = MySqlConnection.getMySqlConnection();
-            prestmt = con.prepareStatement(prepareInsertQuery);
-            prestmt.setString(Customer.FIRST_NAME.getId() + 1, sSplit.get(Customer.FIRST_NAME.getId()));
-            prestmt.setString(Customer.LAST_NAME.getId() + 1, sSplit.get(Customer.LAST_NAME.getId()));
-            prestmt.setString(Customer.CITY.getId() + 1, sSplit.get(Customer.CITY.getId()));
-            prestmt.setString(Customer.STATE.getId() + 1, sSplit.get(Customer.STATE.getId()));
-            prestmt.setString(Customer.ZIP_CODE.getId() + 1, sSplit.get(Customer.ZIP_CODE.getId()));
-            prestmt.setString(Customer.PHONE.getId() + 1, sSplit.get(Customer.PHONE.getId()));
-            prestmt.setString(Customer.EMAIL.getId() + 1, sSplit.get(Customer.EMAIL.getId()));
-            prestmt.setString(Customer.IP.getId() + 1, sSplit.get(Customer.IP.getId()));
-            prestmt.addBatch();
-            prestmt.executeBatch();
-            con.commit();
-            con.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-    }
-
     public static void dropCustomerInfoTable() {
         String queryCreateTable = "DROP TABLE IF EXISTS `orange_toolz`.`customer_info`";
         try {
@@ -105,10 +78,5 @@ public class DatabaseUtil {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-    }
-
-    public static void main(String[] args) {
-        //dropCustomerInfoTable();
-        insertCustomersInfo(new LinkedList<>());
     }
 }
