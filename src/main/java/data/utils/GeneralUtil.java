@@ -9,18 +9,18 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 public class GeneralUtil {
-    public static <T> List<T> getUniqueFromList(List<T> data) {
+    /*public static <T> List<T> getUniqueFromList(List<T> data) {
         Set<T> dataSet = new HashSet<>(data);
         data.clear();
         data.addAll(dataSet);
         return data;
-    }
+    }*/
 
     public static List<String> getUniqueFromCustomerListBasedOnEmailAndPhone(List<String> data) {
         int preSetSize;
         Set<Integer> dataSet = new HashSet<>();
         List<String> newData = new LinkedList<>();
-        preSetSize = dataSet.size();
+        preSetSize = 0;
         for (String s : data) {
             dataSet.add((s.split(",")[Customer.EMAIL.getId()] + s.split(",")[Customer.PHONE.getId()]).hashCode());
             if (dataSet.size() > preSetSize) {
@@ -39,6 +39,8 @@ public class GeneralUtil {
             String gmail = s.split(",")[Customer.EMAIL.getId()];
             if (GeneralUtil.isValidPhoneNo(phone) || GeneralUtil.isValidGmail(gmail)) //if any one from phone and email is valid then considering the data as valid.
                 newData.add(s);
+            else
+                System.out.println(s);
         }
         return newData;
     }
